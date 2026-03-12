@@ -41,7 +41,8 @@ export function setupPath(): PathSetupResult {
 function setupWindowsPath(): PathSetupResult {
   try {
     // Get npm global bin directory
-    const npmBin = execSync('npm bin -g', { encoding: 'utf-8' }).trim();
+    const npmPrefix = execSync('npm prefix -g', { encoding: 'utf-8' }).trim();
+    const npmBin = path.join(npmPrefix, 'node_modules', '.bin');
     
     // Check if already in PATH
     const currentPath = process.env.PATH || '';

@@ -15,6 +15,7 @@ import { structureCommand } from './commands/structure';
 import { configCommand } from './commands/config';
 import { vercelCommand } from './commands/vercel';
 import { setupCommand } from './commands/setup';
+import { updateCommand, runBackgroundUpdateCheck } from './commands/update';
 import { showBanner } from './core/logger';
 
 const program = new Command();
@@ -22,10 +23,21 @@ const program = new Command();
 program
   .name('nucleon')
   .description('⚡ Nucleon CLI — Developer Workflow Engine')
-  .version('1.0.0')
+  .version('1.0.4')
   .action(() => {
     showBanner();
   });
+
+// Auto-update system
+program
+  .command('update')
+  .description('Update Nucleon to the latest version')
+  .action(() => updateCommand());
+
+program
+  .command('version','v')
+  .description('Show version information')
+  .action(() => updateCommand('version'));
 
 // Setup command
 program
@@ -33,6 +45,7 @@ program
   .description('Setup development environment and install dependencies')
   .option('--skip-vercel', 'Skip Vercel CLI installation')
   .option('--skip-optional', 'Skip optional tools installation')
+  .option('--skip-path', 'Skip PATH configuration')
   .action((options) => setupCommand(options));
 
 // Core commands
@@ -244,5 +257,8 @@ pluginCmd
   .command('run <plugin> <command> [args...]')
   .description('Run a plugin command')
   .action((plugin, command, args) => pluginCommand('run', plugin, command, ...args));
+
+// Background update check (runs silently)
+runBackgroundUpdateCheck();
 
 program.parse();

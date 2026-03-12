@@ -1,8 +1,10 @@
 import inquirer from 'inquirer';
 import * as fs from 'fs';
-import ora from 'ora';
+import chalk from 'chalk';
 import { logger } from '../core/logger';
 import { execSync } from 'child_process';
+import { createMultiStepProgress } from '../core/progress';
+import { handleError, ErrorTypes, withErrorHandling } from '../core/errors';
 
 interface ProjectTemplate {
   command: string;
@@ -42,61 +44,133 @@ const templates: Record<string, ProjectTemplate> = {
 };
 
 export async function initCommand() {
-  const answers = await inquirer.prompt([
-    {
-      type: 'list',
-      name: 'projectType',
-      message: 'Select project type:',
-      choices: Object.keys(templates),
-    },
-    {
-      type: 'input',
-      name: 'projectName',
-      message: 'Project name:',
-      default: 'my-project',
-    },
-  ]);
-
-  const projectName = answers.projectName;
-  const template = templates[answers.projectType as keyof typeof templates];
-
-  // Create project directory
-  if (!fs.existsSync(projectName)) {
-    fs.mkdirSync(projectName, { recursive: true });
-  }
-
-  process.chdir(projectName);
-
-  const spinner = ora('Installing framework and dependencies...').start();
-
   try {
-    // Execute installation command
-    execSync(template.command, { stdio: 'inherit' });
+    const answers = await inquirer.prompt([
+      {
+        type: 'list',
+        name: 'projectType',
+        message: 'Select project type:',
+        choices: Object.keys(templates),
+      },
+      {
+        type: 'input',
+        name: 'projectName',
+        message: 'Project name:',
+        default: 'my-project',
+        validate: (input) => {
+          if (!input.trim()) return 'Project name is required';
+          if (!/^[a-zA-Z0-9-_]+$/.test(input)) return 'Project name can only contain letters, numbers, hyphens, and underscores';
+          return true;
+        },
+      },
+    ]);
 
-    // Run post-install setup
-    if (template.postInstall) {
-      template.postInstall();
+    const projectName = answers.projectName;
+    const template = templates[answers.projectType as keyof typeof templates];
+
+    if (!template) {
+      throw ErrorTypes.INVALID_PROJECT_TYPE(answers.projectType);
     }
 
-    // Initialize Git if not already initialized
-    if (!fs.existsSync('.git')) {
-      execSync('git init', { stdio: 'ignore' });
-      spinner.text = 'Initializing Git repository...';
+    // Create project directory
+    if (!fs.existsSync(projectName)) {
+      fs.mkdirSync(projectName, { recursive: true });
     }
 
-    // Create .gitignore if it doesn't exist
-    if (!fs.existsSync('.gitignore')) {
-      fs.writeFileSync('.gitignore', 'node_modules/\ndist/\nbuild/\n.env\n*.log\n');
+    process.chdir(projectName);
+
+    // Multi-step progress
+    const progress = createMultiStepProgress([
+      'Installing framework',
+      'Setting up project structure',
+      'Initializing Git repository',
+      'Creating configuration files'
+    ]);
+
+    progress.start();
+
+    try {
+      // Step 1: Install framework
+      await withErrorHandling(
+        () => new Promise<void>((resolve, reject) => {
+          try {
+            execSync(template.command, { stdio: 'pipe' });
+            resolve();
+          } catch (error) {
+            reject(error);
+          }
+        }),
+        'Framework installation failed',
+        [
+          'Check your internet connection',
+          'Ensure you have the required tools installed',
+          'Try running the command manually'
+        ]
+      );
+      
+      progress.nextStep('Framework installed successfully');
+
+      // Step 2: Post-install setup
+      if (template.postInstall) {
+        await withErrorHandling(
+          () => new Promise<void>((resolve) => {
+            template.postInstall!();
+            resolve();
+          }),
+          'Project structure setup failed'
+        );
+      }
+      
+      progress.nextStep('Project structure created');
+
+      // Step 3: Initialize Git
+      if (!fs.existsSync('.git')) {
+        await withErrorHandling(
+          () => new Promise<void>((resolve, reject) => {
+            try {
+              execSync('git init', { stdio: 'ignore' });
+              resolve();
+            } catch (error) {
+              reject(error);
+            }
+          }),
+          'Git initialization failed',
+          ['Ensure Git is installed', 'Check if you have write permissions']
+        );
+      }
+      
+      progress.nextStep('Git repository initialized');
+
+      // Step 4: Create configuration files
+      if (!fs.existsSync('.gitignore')) {
+        fs.writeFileSync('.gitignore', 'node_modules/\ndist/\nbuild/\n.env\n*.log\n');
+      }
+      
+      progress.nextStep('Configuration files created');
+
+      progress.complete(`Project "${projectName}" created successfully!`);
+
+      console.log(chalk.bold('\n🎉 Project Ready!\n'));
+      console.log(chalk.cyan('Next steps:'));
+      console.log(chalk.gray(`  cd ${projectName}`));
+      console.log(chalk.gray('  Start coding!'));
+      
+      if (answers.projectType === 'Next.js') {
+        console.log(chalk.gray('  npm run dev  # Start development server'));
+      } else if (answers.projectType === 'React + Vite') {
+        console.log(chalk.gray('  npm run dev  # Start development server'));
+      } else if (answers.projectType === 'Express API') {
+        console.log(chalk.gray('  npm run build && npm start  # Start API server'));
+      }
+      
+      console.log();
+
+    } catch (error) {
+      progress.fail('Project initialization failed');
+      throw error;
     }
 
-    spinner.succeed('Project created successfully!');
-    logger.success(`Project "${projectName}" initialized`);
-    logger.success('Dependencies installed');
-    logger.success('Git repository initialized');
-    
-    console.log(`\nNext steps:\n  cd ${projectName}\n  Start coding!\n`);
   } catch (error) {
-    spinner.fail('Failed to create project');
-    logger.error((error as Error).message);
+    handleError(error as Error);
   }
 }

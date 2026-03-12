@@ -2,72 +2,86 @@
 
 **The Ultimate Developer Workflow Engine**
 
-Nucleon is a powerful CLI that unifies your entire development workflow - from project initialization to deployment. One tool to rule them all.
+> One CLI to replace them all. Project initialization, code analysis, deployment, and complete workflow automation.
 
-[![npm version](https://badge.fury.io/js/nucleon-cli.svg)](https://www.npmjs.com/package/nucleon-cli)
+[![npm version](https://img.shields.io/npm/v/nucleon-cli.svg)](https://www.npmjs.com/package/nucleon-cli)
+[![npm downloads](https://img.shields.io/npm/dm/nucleon-cli.svg)](https://www.npmjs.com/package/nucleon-cli)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Node.js Version](https://img.shields.io/node/v/nucleon-cli.svg)](https://nodejs.org/)
 
 ## 🎯 Why Nucleon?
 
-Tired of juggling dozens of CLI tools? Nucleon solves the 5 biggest developer pain points:
+Stop juggling 20+ CLI tools. Nucleon unifies your entire development workflow:
 
-- ❌ **Repetitive project setup** → ✅ Smart project initialization with real framework installation
-- ❌ **Messy commit messages** → ✅ AI-powered commit generation
-- ❌ **Broken environments** → ✅ Comprehensive environment diagnostics
-- ❌ **No project insights** → ✅ Deep codebase analysis and health reports
-- ❌ **Too many tools** → ✅ One unified CLI for everything
+| Problem | Solution |
+|---------|----------|
+| ❌ Repetitive project setup | ✅ Smart initialization with real framework installation |
+| ❌ Messy commit messages | ✅ AI-powered commit generation |
+| ❌ Broken environments | ✅ Comprehensive health diagnostics |
+| ❌ No project insights | ✅ Deep codebase analysis with actionable suggestions |
+| ❌ Complex deployments | ✅ One-command deployment with pre-flight checks |
 
 ## 🚀 Quick Start
 
 ```bash
-# Install globally (one time)
+# Install once, use everywhere
 npm install -g nucleon-cli
 
-# Initialize a new project
+# Initialize any project
 nucleon init
 
-# Analyze your project
+# Analyze your codebase
 nucleon analyze
 
-# Deploy to Vercel
+# Deploy with confidence
 nucleon vercel deploy
 ```
 
-## ✨ Features
+## ✨ Core Features
 
-### 🏗️ **Core Commands**
-- **`nucleon init`** - Initialize projects with real framework installation (Next.js, React, Express, Python)
-- **`nucleon doctor`** - Comprehensive environment health checks
-- **`nucleon analyze`** - Deep project analysis with actionable insights
-- **`nucleon commit`** - Generate intelligent commit messages
+### 🏗️ **Smart Project Initialization**
+```bash
+nucleon init
+```
+- **Real framework installation** (Next.js, React+Vite, Express, FastAPI)
+- **Automatic dependency setup**
+- **Git initialization with best practices**
+- **Environment configuration**
 
-### 📊 **Project Visualization**
-- **`nucleon structure`** - Beautiful project architecture visualization with dependency graphs
-- **`nucleon config`** - Smart project configuration management
+### 📊 **Intelligent Code Analysis**
+```bash
+nucleon analyze
+```
+- **Project health scoring**
+- **Architecture visualization**
+- **Dependency analysis**
+- **Performance insights**
+- **Security recommendations**
 
-### 🚀 **Deployment**
-- **`nucleon vercel`** - Clean Vercel deployment workflow with pre-flight checks
+### 🚀 **Seamless Deployment**
+```bash
+nucleon vercel deploy
+```
+- **Pre-deployment validation**
+- **Environment checks**
+- **Automatic framework detection**
+- **Deployment monitoring**
 
-### 📈 **Analytics & Insights**
-- **`nucleon stats`** - Project statistics and development metrics
-- **`nucleon deps`** - Dependency analysis and security auditing
-- **`nucleon summary`** - Daily development activity tracking
+### ⚙️ **Complete Workflow Automation**
+```bash
+nucleon git smart-commit    # Intelligent commits
+nucleon task add "Feature"  # Task management  
+nucleon deps                # Security auditing
+nucleon summary             # Development metrics
+```
 
-### ⚙️ **Workflow Tools**
-- **`nucleon task`** - Lightweight task management
-- **`nucleon git`** - Enhanced Git workflows with smart operations
-- **`nucleon context`** - Project metadata and context management
-
-### 🔌 **Extensibility**
-- **`nucleon plugin`** - Plugin system for unlimited extensibility
-
-## 📸 Screenshots
+## 📸 Live Examples
 
 ### Project Structure Visualization
 ```
 🏗️  Project Structure
 
-└── 📁 project
+└── 📁 my-app
     ├── 📁 src
     │   ├── 📁 components
     │   │   ├── 🔷 Header.tsx
@@ -75,105 +89,91 @@ nucleon vercel deploy
     │   └── 🔷 index.ts
     └── 📋 package.json
 
-🔗 Dependency Graph Detected
-💡 Architecture Insights
-  • React architecture detected with component-based structure
-  • Clean modular architecture with reasonable dependencies
+🔗 Dependency Graph: 15 modules analyzed
+💡 Insights: Clean React architecture detected
 ```
 
-### Smart Project Analysis
+### Smart Health Analysis
 ```
 📊 Project Health Report
 
-Language: TypeScript
-Framework: Next.js
-Files: 127
-Lines of Code: 12,481
-Test Coverage: ~85%
+Language: TypeScript    Framework: Next.js
+Files: 127              Test Coverage: 85%
+Lines: 12,481          Dependencies: 23
 
-💡 Suggestions
-  • Consider splitting Dashboard.tsx into smaller components
-  • Excellent test coverage - keep it up!
+⚠️  Warnings
+  • Large file: Dashboard.tsx (1,200 lines)
+  
+💡 Suggestions  
+  • Split Dashboard into smaller components
+  • Add integration tests for API routes
 ```
 
-## 🛠️ Installation & Setup
+## 🛠️ Installation
 
-### Global Installation
+### Global Installation (Recommended)
 ```bash
 npm install -g nucleon-cli
 ```
 
-### Automatic Setup
-Nucleon automatically sets up your environment on first install:
-- ✅ Detects and installs Vercel CLI
-- ✅ Configures optional development tools
-- ✅ Provides guided onboarding
+### Automatic Environment Setup
+Nucleon automatically configures your development environment:
+- ✅ Installs Vercel CLI for deployments
+- ✅ Configures optional dev tools (TypeScript, ESLint, Prettier)
+- ✅ Sets up project templates and configurations
 
-### Manual Setup
-```bash
-nucleon setup  # Run setup anytime
-```
+## 📚 Command Reference
 
-## 📚 Usage Examples
-
-### Initialize a New Project
-```bash
-nucleon init
-# Choose from: Next.js, React+Vite, Express API, Python FastAPI, CLI Tool
-# Automatically installs dependencies and sets up Git
-```
-
-### Analyze Any Project
-```bash
-cd my-project
-nucleon analyze
-# Get insights on architecture, dependencies, and code health
-```
-
-### Deploy with Confidence
-```bash
-nucleon vercel deploy
-# Smart pre-deployment checks
-# Automatic framework detection
-# Clean deployment workflow
-```
-
-### Daily Development Workflow
-```bash
-nucleon task add "Implement user auth"
-nucleon git smart-commit
-nucleon summary
-```
+| Command | Description |
+|---------|-------------|
+| `nucleon init` | Initialize projects with framework installation |
+| `nucleon analyze` | Deep project analysis and health check |
+| `nucleon structure` | Visualize project architecture |
+| `nucleon vercel` | Clean deployment workflow |
+| `nucleon doctor` | Environment diagnostics |
+| `nucleon git` | Enhanced Git operations |
+| `nucleon task` | Lightweight task management |
+| `nucleon stats` | Development metrics |
+| `nucleon setup` | Configure development environment |
 
 ## 🎯 Perfect For
 
-- **Frontend Developers** - Next.js, React, Vue projects
-- **Backend Developers** - Express, FastAPI, Node.js APIs  
-- **Full-Stack Teams** - End-to-end project management
-- **DevOps Engineers** - Deployment and environment management
-- **Open Source Maintainers** - Project health and analytics
+- **🎨 Frontend Developers** - React, Next.js, Vue projects
+- **⚙️ Backend Engineers** - Express, FastAPI, Node.js APIs
+- **🚀 Full-Stack Teams** - End-to-end project management
+- **☁️ DevOps Engineers** - Deployment automation
+- **📦 Open Source Maintainers** - Project health monitoring
+
+## 🌟 What Makes Nucleon Special
+
+- **🔄 Universal** - Works in any directory, adapts to any project
+- **🧠 Intelligent** - Context-aware commands that understand your project
+- **⚡ Fast** - Optimized for developer productivity
+- **🔌 Extensible** - Plugin system for custom workflows
+- **🎨 Beautiful** - Clean, colorful output that's easy to read
 
 ## 🤝 Contributing
 
-We love contributions! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+We welcome contributions! Check out our [Contributing Guide](CONTRIBUTING.md).
 
-### Development Setup
 ```bash
-git clone https://github.com/yourusername/nucleon-cli
-cd nucleon-cli
-npm install
-npm run build
+git clone https://github.com/nucleon-cli/nucleon
+cd nucleon
+npm install && npm run build
 npm link  # Test locally
 ```
 
 ## 📄 License
 
-MIT © [Your Name]
+MIT © Nucleon Team
 
-## 🌟 Show Your Support
+## 🌟 Support
 
-If Nucleon helps your workflow, please ⭐ star this repo!
+If Nucleon improves your workflow, please:
+- ⭐ **Star this repo**
+- 🐦 **Share on Twitter**
+- 📝 **Write a review**
 
 ---
 
-**Made with ❤️ for developers who want to focus on building, not tooling.**
+**Built with ❤️ for developers who want to focus on building, not tooling.**

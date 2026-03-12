@@ -1,7 +1,7 @@
 {
   "name": "nucleon-cli",
-  "version": "1.0.0",
-  "description": "Developer Workflow Engine - Project Inspector + Git Helper",
+  "version": "1.0.1",
+  "description": "🚀 The Ultimate Developer Workflow Engine - One CLI to replace them all. Project init, analysis, deployment, Git workflows, and more.",
   "main": "dist/index.js",
   "bin": {
     "nucleon": "dist/index.js"
@@ -10,18 +10,70 @@
     "build": "tsc",
     "dev": "tsc --watch",
     "start": "node dist/index.js",
-    "postinstall": "node dist/postinstall.js || echo 'Postinstall script not found'"
+    "postinstall": "node dist/postinstall.js || echo 'Setup will run on first use'",
+    "prepublishOnly": "npm run build"
   },
   "keywords": [
     "cli",
     "developer-tools",
-    "git",
-    "project-analysis",
+    "workflow",
+    "productivity",
+    "automation",
+    "project-init",
+    "code-analysis",
+    "deployment",
     "vercel",
-    "deployment"
+    "git",
+    "nextjs",
+    "react",
+    "typescript",
+    "javascript",
+    "python",
+    "devops",
+    "build-tools",
+    "project-management",
+    "developer-experience",
+    "dx",
+    "scaffolding",
+    "boilerplate",
+    "framework",
+    "universal-cli",
+    "dev-workflow",
+    "project-health",
+    "code-quality",
+    "smart-commits",
+    "task-management",
+    "environment-setup"
   ],
-  "author": "",
+  "author": {
+    "name": "Nucleon Team",
+    "email": "hello@nucleon-cli.dev"
+  },
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nucleon-cli/nucleon.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nucleon-cli/nucleon/issues"
+  },
+  "homepage": "https://github.com/nucleon-cli/nucleon#readme",
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=7.0.0"
+  },
+  "os": [
+    "darwin",
+    "linux",
+    "win32"
+  ],
+  "preferGlobal": true,
+  "files": [
+    "dist/**/*",
+    "README.md",
+    "LICENSE",
+    "CONTRIBUTING.md"
+  ],
   "dependencies": {
     "commander": "^11.1.0",
     "chalk": "^4.1.2",
@@ -32,5 +84,9 @@
     "@types/node": "^20.10.0",
     "@types/inquirer": "^8.2.10",
     "typescript": "^5.3.3"
+  },
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/nucleon-cli"
   }
 }

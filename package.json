@@ -1,0 +1,29 @@
+{
+  "name": "nucleon-cli",
+  "version": "1.0.0",
+  "description": "Developer Workflow Engine - Project Inspector + Git Helper",
+  "main": "dist/index.js",
+  "bin": {
+    "nucleon": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "start": "node dist/index.js",
+    "postinstall": "node dist/postinstall.js || echo 'Postinstall script not found'"
+  },
+  "keywords": ["cli", "developer-tools", "git", "project-analysis", "vercel", "deployment"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^11.1.0",
+    "chalk": "^4.1.2",
+    "inquirer": "^8.2.6",
+    "ora": "^5.4.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@types/inquirer": "^8.2.10",
+    "typescript": "^5.3.3"
+  }
+}

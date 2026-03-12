@@ -1,6 +1,6 @@
 {
   "name": "nucleon-cli",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "🚀 The Ultimate Developer Workflow Engine - One CLI to replace them all. Project init, analysis, deployment, Git workflows, and more.",
   "main": "dist/index.js",
   "bin": {

@@ -5,10 +5,13 @@ import { execSync } from 'child_process';
 import { logger } from '../core/logger';
 import { isVercelInstalled } from '../core/vercel';
 import { checkCommand } from '../core/system';
+import { setupPath, checkNucleonInPath, showPathInstructions } from '../core/path-setup';
+import * as os from 'os';
 
 interface SetupOptions {
   skipVercel?: boolean;
   skipOptional?: boolean;
+  skipPath?: boolean;
 }
 
 export async function setupCommand(options: SetupOptions = {}) {
@@ -16,9 +19,15 @@ export async function setupCommand(options: SetupOptions = {}) {
   console.log(chalk.gray('Setting up your development environment...\n'));
 
   const results = {
+    path: false,
     vercel: false,
     optional: [] as string[],
   };
+
+  // Check and setup PATH
+  if (!options.skipPath) {
+    await setupPathAccess(results);
+  }
 
   // Check and install Vercel CLI
   if (!options.skipVercel) {
@@ -32,6 +41,62 @@ export async function setupCommand(options: SetupOptions = {}) {
 
   // Show summary
   showSetupSummary(results);
+}
+
+async function setupPathAccess(results: { path: boolean }) {
+  console.log(chalk.bold('🛤️  PATH Configuration\n'));
+
+  if (checkNucleonInPath()) {
+    logger.success('Nucleon is accessible from command line');
+    results.path = true;
+    return;
+  }
+
+  console.log(chalk.yellow('Nucleon not found in PATH'));
+  console.log(chalk.gray('Setting up global access...\n'));
+
+  const answers = await inquirer.prompt([
+    {
+      type: 'confirm',
+      name: 'setupPath',
+      message: 'Configure PATH automatically?',
+      default: true,
+    },
+  ]);
+
+  if (answers.setupPath) {
+    const spinner = ora('Configuring PATH...').start();
+    
+    const pathResult = setupPath();
+    
+    if (pathResult.success) {
+      spinner.succeed('PATH configured successfully');
+      results.path = true;
+      
+      if (pathResult.requiresRestart) {
+        console.log(chalk.yellow('\n⚠ Please restart your terminal or run:'));
+        const platform = os.platform();
+        if (platform === 'win32') {
+          console.log(chalk.cyan('   refreshenv  # or restart terminal'));
+        } else {
+          console.log(chalk.cyan('   source ~/.bashrc  # or restart terminal'));
+        }
+      }
+      
+      console.log(chalk.green('\n✨ Nucleon is now globally accessible!'));
+      console.log(chalk.gray('You can now run:'), chalk.bold('nucleon'), chalk.gray('from any directory'));
+      
+    } else {
+      spinner.fail('Automatic PATH setup failed');
+      console.log(chalk.red('Error:'), pathResult.message);
+      showPathInstructions(os.platform());
+    }
+  } else {
+    console.log(chalk.yellow('Skipping PATH configuration'));
+    showPathInstructions(os.platform());
+  }
+
+  console.log();
 }
 
 async function setupVercel(results: { vercel: boolean }) {
@@ -135,11 +200,19 @@ async function setupOptionalTools(results: { optional: string[] }) {
   console.log();
 }
 
-function showSetupSummary(results: { vercel: boolean; optional: string[] }) {
+function showSetupSummary(results: { path: boolean; vercel: boolean; optional: string[] }) {
   console.log(chalk.bold('📋 Setup Summary\n'));
 
+  // PATH setup
+  console.log(chalk.bold('Global Access:'));
+  if (results.path) {
+    console.log(chalk.green('  ✔ Nucleon globally accessible'), chalk.gray('(run from any directory)'));
+  } else {
+    console.log(chalk.yellow('  ⚠ PATH setup needed'), chalk.gray('(see instructions above)'));
+  }
+
   // Core tools
-  console.log(chalk.bold('Core Tools:'));
+  console.log(chalk.bold('\nCore Tools:'));
   console.log(chalk.green('  ✔ Node.js'), chalk.gray('(required)'));
   console.log(chalk.green('  ✔ npm'), chalk.gray('(required)'));
   console.log(chalk.green('  ✔ Git'), chalk.gray('(required)'));

@@ -1,0 +1,7 @@
+{
+  "lint": true,
+  "test": false,
+  "typescript": true,
+  "packageManager": "npm",
+  "language": "typescript"
+}

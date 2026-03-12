@@ -1,0 +1,13 @@
+src/
+tsconfig.json
+.git/
+.github/
+*.log
+.DS_Store
+node_modules/
+.env
+.nucleon-*
+test/
+tests/
+*.test.js
+*.test.ts

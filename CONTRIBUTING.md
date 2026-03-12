@@ -7,8 +7,8 @@ Thank you for your interest in contributing to Nucleon! 🎉
 1. **Fork the repository**
 2. **Clone your fork**
    ```bash
-   git clone https://github.com/yourusername/nucleon-cli
-   cd nucleon-cli
+   git clone https://github.com/namasharma28/nucleon
+   cd nucleon
    ```
 3. **Install dependencies**
    ```bash

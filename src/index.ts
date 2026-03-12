@@ -23,7 +23,7 @@ const program = new Command();
 program
   .name('nucleon')
   .description('⚡ Nucleon CLI — Developer Workflow Engine')
-  .version('1.0.4')
+  .version('1.0.6')
   .action(() => {
     showBanner();
   });
@@ -35,7 +35,7 @@ program
   .action(() => updateCommand());
 
 program
-  .command('version','v')
+  .command('version')
   .description('Show version information')
   .action(() => updateCommand('version'));
 
@@ -74,6 +74,12 @@ program
   .command('structure')
   .description('Visualize project architecture and dependencies')
   .action(structureCommand);
+
+// Quick deploy command (alias for vercel deploy)
+program
+  .command('deploy')
+  .description('Deploy to Vercel with smart checks')
+  .action(() => vercelCommand('deploy'));
 
 // Configuration management
 const configCmd = program

@@ -1,7 +1,7 @@
 {
   "name": "nucleon-cli",
-  "version": "1.0.4",
-  "description": "🚀 The Ultimate Developer Workflow Engine - One CLI to replace them all. Project init, analysis, deployment, Git workflows, and more.",
+  "version": "1.0.6",
+  "description": "🚀 The Ultimate Developer Workflow Engine - One CLI to replace them all. Install globally: npm install -g nucleon-cli",
   "main": "dist/index.js",
   "bin": {
     "nucleon": "dist/index.js"
@@ -14,7 +14,10 @@
     "prepublishOnly": "npm run build"
   },
   "keywords": [
+    "nucleon",
     "cli",
+    "global-cli",
+    "npm-install-g",
     "developer-tools",
     "workflow",
     "productivity",
@@ -43,21 +46,23 @@
     "code-quality",
     "smart-commits",
     "task-management",
-    "environment-setup"
+    "environment-setup",
+    "global-installation"
   ],
   "author": {
-    "name": "Nucleon Team",
-    "email": "hello@nucleon-cli.dev"
+    "name": "Naman Sharma",
+    "email": "namansharma.web@gmail.com",
+    "url": "https://github.com/namansharma28"
   },
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/nucleon-cli/nucleon.git"
+    "url": "https://github.com/namansharma28/nucleon.git"
   },
   "bugs": {
-    "url": "https://github.com/nucleon-cli/nucleon/issues"
+    "url": "https://github.com/namansharma28/nucleon/issues"
   },
-  "homepage": "https://github.com/nucleon-cli/nucleon#readme",
+  "homepage": "https://github.com/namansharma28/nucleon#readme",
   "engines": {
     "node": ">=16.0.0",
     "npm": ">=7.0.0"
@@ -68,6 +73,7 @@
     "win32"
   ],
   "preferGlobal": true,
+  "globalInstall": true,
   "files": [
     "dist/**/*",
     "README.md",
@@ -87,6 +93,33 @@
   },
   "funding": {
     "type": "github",
-    "url": "https://github.com/sponsors/nucleon-cli"
+    "url": "https://github.com/sponsors/namansharma28"
+  },
+  "maintainers": [
+    {
+      "name": "Naman Sharma",
+      "email": "namansharma.web@gamil.com",
+      "url": "https://github.com/namansharma28"
+    }
+  ],
+  "contributors": [
+    {
+      "name": "Naman Sharma",
+      "email": "namansharma.web@gamil.com",
+      "url": "https://github.com/namansharma28"
+    }
+  ],
+  "directories": {
+    "lib": "./dist",
+    "doc": "./README.md"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "installMessage": "Install globally: npm install -g nucleon-cli",
+  "installation": {
+    "command": "npm install -g nucleon-cli",
+    "type": "global"
   }
 }

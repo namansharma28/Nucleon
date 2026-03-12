@@ -4,11 +4,27 @@
 
 > One CLI to replace them all. Project initialization, code analysis, deployment, and complete workflow automation.
 
-## 🚀 Installation
+---
+
+## 📦 Installation
+
+**Global installation required:**
 
 ```bash
 npm install -g nucleon-cli
 ```
+
+**⚠️ Do not install locally** - Nucleon is designed to work globally across all your projects.
+
+---
+
+## 🚀 Global Installation
+
+```bash
+npm install -g nucleon-cli
+```
+
+> **Important**: Always install Nucleon globally with the `-g` flag to use it in any directory.
 
 [![npm version](https://img.shields.io/npm/v/nucleon-cli.svg)](https://www.npmjs.com/package/nucleon-cli)
 [![npm downloads](https://img.shields.io/npm/dm/nucleon-cli.svg)](https://www.npmjs.com/package/nucleon-cli)
@@ -18,17 +34,13 @@ npm install -g nucleon-cli
 ## ⚡ Quick Start
 
 ```bash
-# Install once, use everywhere
+# 1. Install globally (required)
 npm install -g nucleon-cli
 
-# Initialize any project
+# 2. Use anywhere
 nucleon init
-
-# Analyze your codebase
 nucleon analyze
-
-# Deploy with confidence
-nucleon vercel deploy
+nucleon deploy
 ```
 
 ## 🎯 Why Nucleon?
@@ -205,12 +217,26 @@ If Nucleon isn't working after installation:
 
 ## 🛠️ Getting Started
 
-### 1. Install Globally
+### 1. Global Installation (Required)
 ```bash
 npm install -g nucleon-cli
 ```
 
-### 2. Automatic Setup
+> **⚠️ Important**: Nucleon must be installed globally to work in any directory. Do not use local installation.
+
+### 2. Verify Installation
+```bash
+nucleon --version
+nucleon --help
+```
+
+### 2. Verify Installation
+```bash
+nucleon --version
+nucleon --help
+```
+
+### 3. Automatic Setup
 Nucleon automatically configures your development environment:
 - ✅ Sets up PATH for global access
 - ✅ Installs Vercel CLI for deployments
@@ -245,16 +271,18 @@ export PATH="$PATH:$(npm bin -g)"
 ### 4. Start Using
 ```bash
 nucleon init     # Create a new project
-nucleon doctor   # Check your environment
+nucleon doctor   # Check your environment  
 nucleon analyze  # Analyze any existing project
 ```
+
+> **💡 Pro Tip**: Run `nucleon doctor` first to ensure your development environment is properly configured.
 
 ## 🤝 Contributing
 
 We welcome contributions! Check out our [Contributing Guide](CONTRIBUTING.md).
 
 ```bash
-git clone https://github.com/nucleon-cli/nucleon
+git clone https://github.com/namansharma28/nucleon
 cd nucleon
 npm install && npm run build
 npm link  # Test locally
@@ -262,7 +290,7 @@ npm link  # Test locally
 
 ## 📄 License
 
-MIT © Nucleon Team
+MIT © Naman Sharma
 
 ## 🌟 Support
 
